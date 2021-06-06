@@ -1,12 +1,12 @@
 package com.br.zupacademy.proposta.api.novaproposta;
 
 import java.net.URI;
+import java.util.List;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,16 +18,23 @@ import org.springframework.web.util.UriComponentsBuilder;
 @RestController
 public class NovaPropostaController {
 
-	@PersistenceContext
-	private EntityManager manager;
+	@Autowired
+	private PropostaRepository repository;
 	
 	@PostMapping("/propostas")
 	@Transactional
 	public ResponseEntity<?> cadastrar(@RequestBody @Valid NovaPropostaRequest request,
 			UriComponentsBuilder uriBuilder) {
+		
+		List<Proposta> possivelProposta = repository.findByDocumento(request.getDocumento());
+		
+		if (possivelProposta.size() > 0) {
+			return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).build();
+		}
+		
 		Proposta novaProposta = request.toModel();
 		
-		manager.persist(novaProposta);
+		repository.save(novaProposta);
 		
 		URI enderecoProposta = uriBuilder.path("/propostas/{id}").build(novaProposta.getId());
 		
