@@ -1,4 +1,4 @@
-package com.br.zupacademy.proposta.api.compartilhado;
+package com.br.zupacademy.proposta.api.compartilhado.errorshandler;
 
 import org.springframework.http.HttpStatus;
 

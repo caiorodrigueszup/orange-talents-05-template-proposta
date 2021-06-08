@@ -6,7 +6,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Positive;
 
-import com.br.zupacademy.proposta.api.compartilhado.ValidarCPFeCNPJ;
+import com.br.zupacademy.proposta.api.compartilhado.validacoes.ValidarCPFeCNPJ;
 import com.sun.istack.NotNull;
 
 public class NovaPropostaRequest {

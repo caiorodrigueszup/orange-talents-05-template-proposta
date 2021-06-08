@@ -3,6 +3,8 @@ package com.br.zupacademy.proposta.api.novaproposta;
 import java.math.BigDecimal;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -10,7 +12,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Positive;
 
-import com.br.zupacademy.proposta.api.compartilhado.ValidarCPFeCNPJ;
+import com.br.zupacademy.proposta.api.compartilhado.validacoes.ValidarCPFeCNPJ;
 
 @Entity
 public class Proposta {
@@ -24,6 +26,9 @@ public class Proposta {
 	private @NotBlank String endereco;
 	private @Positive BigDecimal salario;
 
+	@Enumerated(EnumType.STRING)
+	private Status status;
+
 	@Deprecated
 	public Proposta() {
 	};
@@ -36,9 +41,21 @@ public class Proposta {
 		this.endereco = endereco;
 		this.salario = salario;
 	}
-	
+
 	public Long getId() {
 		return id;
+	}
+
+	public String getDocumento() {
+		return documento;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setStatus(Status status) {
+		this.status = status;
 	}
 
 	@Override

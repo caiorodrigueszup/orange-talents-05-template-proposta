@@ -1,4 +1,4 @@
-package com.br.zupacademy.proposta.api.compartilhado;
+package com.br.zupacademy.proposta.api.compartilhado.errorshandler;
 
 import java.util.Collection;
 

@@ -1,4 +1,4 @@
-package com.br.zupacademy.proposta.api.compartilhado;
+package com.br.zupacademy.proposta.api.compartilhado.validacoes;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
