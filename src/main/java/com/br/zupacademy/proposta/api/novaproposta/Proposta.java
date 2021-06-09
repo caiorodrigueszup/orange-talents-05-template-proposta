@@ -14,7 +14,6 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Positive;
 
-import com.br.zupacademy.proposta.api.compartilhado.validacoes.ValidarCPFeCNPJ;
 import com.br.zupacademy.proposta.api.criarcartao.Cartao;
 
 @Entity
@@ -23,7 +22,7 @@ public class Proposta {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	private @NotBlank @ValidarCPFeCNPJ String documento;
+	private @NotBlank String documento;
 	private @NotBlank @Email String email;
 	private @NotBlank String nome;
 	private @NotBlank String endereco;
@@ -31,7 +30,7 @@ public class Proposta {
 
 	@Enumerated(EnumType.STRING)
 	private Status status;
-	
+
 	@OneToOne(cascade = CascadeType.MERGE)
 	private Cartao cartao;
 
@@ -60,10 +59,14 @@ public class Proposta {
 		return nome;
 	}
 
+	public Status getStatus() {
+		return status;
+	}
+
 	public void situacao(Status status) {
 		this.status = status;
 	}
-	
+
 	public void adquire(Cartao cartao) {
 		this.cartao = cartao;
 	}
@@ -71,7 +74,7 @@ public class Proposta {
 	@Override
 	public String toString() {
 		return "Proposta [id=" + id + ", documento=" + documento + ", email=" + email + ", nome=" + nome + ", endereco="
-				+ endereco + ", salario=" + salario + "]";
+				+ endereco + ", salario=" + salario + ", status=" + status + ", cartao=" + cartao + "]";
 	}
 
 }
