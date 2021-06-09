@@ -2,17 +2,20 @@ package com.br.zupacademy.proposta.api.novaproposta;
 
 import java.math.BigDecimal;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Positive;
 
 import com.br.zupacademy.proposta.api.compartilhado.validacoes.ValidarCPFeCNPJ;
+import com.br.zupacademy.proposta.api.criarcartao.Cartao;
 
 @Entity
 public class Proposta {
@@ -28,6 +31,9 @@ public class Proposta {
 
 	@Enumerated(EnumType.STRING)
 	private Status status;
+	
+	@OneToOne(cascade = CascadeType.MERGE)
+	private Cartao cartao;
 
 	@Deprecated
 	public Proposta() {
@@ -54,8 +60,12 @@ public class Proposta {
 		return nome;
 	}
 
-	public void setStatus(Status status) {
+	public void situacao(Status status) {
 		this.status = status;
+	}
+	
+	public void adquire(Cartao cartao) {
+		this.cartao = cartao;
 	}
 
 	@Override

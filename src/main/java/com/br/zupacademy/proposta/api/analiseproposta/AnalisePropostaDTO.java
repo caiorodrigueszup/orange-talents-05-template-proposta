@@ -7,7 +7,7 @@ import com.br.zupacademy.proposta.api.compartilhado.validacoes.ExistsId;
 import com.br.zupacademy.proposta.api.compartilhado.validacoes.ValidarCPFeCNPJ;
 import com.br.zupacademy.proposta.api.novaproposta.Proposta;
 
-public class AnalisePropostaRequest {
+public class AnalisePropostaDTO {
 
 	@NotBlank
 	@ValidarCPFeCNPJ
@@ -20,7 +20,7 @@ public class AnalisePropostaRequest {
 	@ExistsId(domainClass = Proposta.class, fieldName = "id")
 	private Long idProposta;
 	
-	public AnalisePropostaRequest(Proposta proposta) {
+	public AnalisePropostaDTO(Proposta proposta) {
 		this.documento = proposta.getDocumento();
 		this.nome = proposta.getNome();
 		this.idProposta = proposta.getId();

@@ -9,7 +9,7 @@ import org.springframework.boot.actuate.health.HealthIndicator;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 
-import com.br.zupacademy.proposta.api.analiseproposta.PropostaAnaliseClient;
+import com.br.zupacademy.proposta.api.analiseproposta.ServicoAnaliseProposta;
 
 import feign.FeignException;
 
@@ -17,7 +17,7 @@ import feign.FeignException;
 public class SolicitacaoDeAnaliseHealthIndicator implements HealthIndicator {
 
 	@Autowired
-	private PropostaAnaliseClient propostaAnaliseClient;
+	private ServicoAnaliseProposta propostaAnaliseClient;
 
 	@Override
 	public Health health() {
