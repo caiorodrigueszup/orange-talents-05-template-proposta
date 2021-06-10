@@ -1,15 +1,19 @@
 package com.br.zupacademy.proposta.api.criarcartao;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+import com.br.zupacademy.proposta.api.novabiometria.Biometria;
 import com.br.zupacademy.proposta.api.novaproposta.Proposta;
 
 @Entity
@@ -32,6 +36,9 @@ public class Cartao {
 	@OneToOne
 	private Proposta proposta;
 
+	@OneToMany(mappedBy = "cartao")
+	private List<Biometria> biometrias;
+
 	@Deprecated
 	public Cartao() {
 	}
@@ -43,6 +50,7 @@ public class Cartao {
 		this.titular = titular;
 		this.limite = limite;
 		this.proposta = proposta;
+		this.biometrias = new ArrayList<Biometria>();
 	}
 
 	public Long getId() {
@@ -64,5 +72,20 @@ public class Cartao {
 	public Proposta getProposta() {
 		return proposta;
 	}
+
+	public List<Biometria> getBiometrias() {
+		return biometrias;
+	}
+
+	public void inserirNova(Biometria biometria) {
+		this.biometrias.add(biometria);
+	}
+
+	@Override
+	public String toString() {
+		return "Cartao [id=" + id + ", numero=" + numero + ", titular=" + titular + ", limite=" + limite + "]";
+	}
+	
+	
 
 }
