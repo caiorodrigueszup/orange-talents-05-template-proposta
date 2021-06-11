@@ -35,7 +35,8 @@ public class NovaPropostaController {
 
 	@PostMapping("/propostas")
 	@Transactional
-	public ResponseEntity<?> cadastrar(@RequestBody @Valid NovaPropostaRequest request, UriComponentsBuilder uriBuilder)
+	public ResponseEntity<?> cadastrar(@RequestBody @Valid NovaPropostaRequest request, 
+			UriComponentsBuilder uriBuilder)
 			throws JsonMappingException, JsonProcessingException {
 		Optional<Proposta> possivelProposta = repository.findByDocumento(request.getDocumento());
 

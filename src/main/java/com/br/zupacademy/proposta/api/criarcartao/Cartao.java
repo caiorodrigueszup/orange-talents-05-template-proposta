@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -38,6 +40,9 @@ public class Cartao {
 
 	@OneToMany(mappedBy = "cartao")
 	private List<Biometria> biometrias;
+	
+	@Enumerated(EnumType.STRING)
+	private StatusCartao status;
 
 	@Deprecated
 	public Cartao() {
@@ -51,6 +56,7 @@ public class Cartao {
 		this.limite = limite;
 		this.proposta = proposta;
 		this.biometrias = new ArrayList<Biometria>();
+		this.status = StatusCartao.NAO_BLOQUEADO;
 	}
 
 	public Long getId() {
@@ -79,6 +85,18 @@ public class Cartao {
 
 	public void inserirNova(Biometria biometria) {
 		this.biometrias.add(biometria);
+	}
+	
+	public boolean estaBloqueado() {
+		if (status.equals(StatusCartao.BLOQUEADO)) {
+			return true;
+		}
+		
+		return false;
+	}
+	
+	public void bloquear() {
+		this.status = StatusCartao.BLOQUEADO;
 	}
 
 	@Override
