@@ -47,7 +47,7 @@ public class AssociarCarteiraController {
 		}
 		
 		try {
-			servicoAssociaCartaoACarteira.associar(id, form);
+			servicoAssociaCartaoACarteira.associar(cartao.getNumero(), form);
 			
 			manager.persist(carteira);
 			
@@ -55,7 +55,7 @@ public class AssociarCarteiraController {
 			
 			return ResponseEntity.created(uri).build();
 		} catch (Exception e) {
-			throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY, "Não foi possível associar carteira.");
+			throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY, "Não foi possível associar carteira. " );
 		}
 	}
 }

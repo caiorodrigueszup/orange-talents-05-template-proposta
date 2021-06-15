@@ -19,12 +19,12 @@ public class AssociarCarteiraForm {
 		this.carteira = carteira;
 	}
 
-	public String getCarteira() {
-		return carteira;
+	public String getEmail() {
+		return email;
 	}
 
-	public void setCarteira(String carteira) {
-		this.carteira = carteira;
+	public String getCarteira() {
+		return carteira;
 	}
 
 	@Override
