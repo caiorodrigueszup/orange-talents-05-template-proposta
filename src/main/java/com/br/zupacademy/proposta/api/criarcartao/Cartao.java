@@ -15,6 +15,7 @@ import javax.persistence.OneToOne;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+import com.br.zupacademy.proposta.api.cartaoassociarcarteira.Carteira;
 import com.br.zupacademy.proposta.api.novabiometria.Biometria;
 import com.br.zupacademy.proposta.api.novaproposta.Proposta;
 
@@ -43,6 +44,9 @@ public class Cartao {
 	
 	@Enumerated(EnumType.STRING)
 	private StatusCartao status;
+	
+	@OneToMany(mappedBy = "cartao")
+	private List<Carteira> carteiras;
 
 	@Deprecated
 	public Cartao() {
@@ -57,6 +61,7 @@ public class Cartao {
 		this.proposta = proposta;
 		this.biometrias = new ArrayList<Biometria>();
 		this.status = StatusCartao.NAO_BLOQUEADO;
+		this.carteiras = new ArrayList<Carteira>();
 	}
 
 	public Long getId() {
@@ -99,11 +104,13 @@ public class Cartao {
 		this.status = StatusCartao.BLOQUEADO;
 	}
 
+	public boolean ehAssociado(Carteira carteira) {
+		return carteiras.contains(carteira);
+	}
+
 	@Override
 	public String toString() {
 		return "Cartao [id=" + id + ", numero=" + numero + ", titular=" + titular + ", limite=" + limite + "]";
 	}
-	
-	
 
 }
