@@ -59,6 +59,10 @@ public class Proposta {
 		return nome;
 	}
 
+	public String getEmail() {
+		return email;
+	}
+
 	public Status getStatus() {
 		return status;
 	}
