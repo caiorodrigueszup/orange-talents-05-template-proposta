@@ -18,6 +18,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import com.br.zupacademy.proposta.api.analiseproposta.AnalisePropostaDTO;
 import com.br.zupacademy.proposta.api.analiseproposta.ResultadoAnalisePropostaDTO;
 import com.br.zupacademy.proposta.api.analiseproposta.ServicoAnaliseProposta;
+import com.br.zupacademy.proposta.api.utils.CriptografarDados;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -49,15 +50,20 @@ public class NovaPropostaController {
 		
 		Span activeSpan = tracer.activeSpan();
 		
-		Optional<Proposta> possivelProposta = repository.findByDocumento(request.getDocumento());
+		String documentoCriptografado = CriptografarDados.criptografaTexto(request.getDocumento());
+		
+		Optional<Proposta> possivelProposta = repository.findByDocumento(documentoCriptografado);
 
 		if (possivelProposta.isPresent()) {
 			return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).build();
 		}
-		Proposta novaProposta = request.toModel();
+		
+		Proposta novaProposta = request.toModel(documentoCriptografado);
 
 		repository.save(novaProposta);
+		
 		activeSpan.setBaggageItem("user.email", novaProposta.getEmail());
+		
 		AnalisePropostaDTO analisePropostaDto = new AnalisePropostaDTO(novaProposta);
 
 		ResultadoAnalisePropostaDTO resultadoAnalisePropostaDto = null;
