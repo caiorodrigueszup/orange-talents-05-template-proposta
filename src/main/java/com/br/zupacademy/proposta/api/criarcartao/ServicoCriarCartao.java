@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.br.zupacademy.proposta.api.analiseproposta.AnalisePropostaDTO;
 
-@FeignClient(value = "criarcartao", url = "${servico.gera.cartoes}")
+@FeignClient(value = "criarcartao", url = "${servico.cartoes}")
 public interface ServicoCriarCartao {
 	
 	@RequestMapping(method = RequestMethod.POST, value = "/" ,consumes = "application/json")

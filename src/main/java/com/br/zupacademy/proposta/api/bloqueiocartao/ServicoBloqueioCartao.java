@@ -9,11 +9,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonCreator.Mode;
 
-@FeignClient(value = "api-bloqueio-cartao", url = "${endpoint.cartoes}")
+@FeignClient(value = "api-bloqueio-cartao", url = "${servico.cartoes}")
 public interface ServicoBloqueioCartao {
 
 	@RequestMapping(method = RequestMethod.POST, consumes = "application/json", 
-			produces = "application/json", value = "/api/cartoes/{id}/bloqueios")
+			produces = "application/json", value = "/{id}/bloqueios")
 	String notifica(@PathVariable(name = "id") String id, @RequestBody BloqueioCartaoDTO dados);
 }
 
